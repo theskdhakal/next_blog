@@ -18,7 +18,8 @@ const Navbar = () => {
         ) : ( */}
         <>
           <Link href="/profile">Profile</Link>
-          <Link href="">Login </Link>
+          <Link href="/login">Login </Link>
+          <Link href="/register">Register </Link>
         </>
         {/* )} */}
       </div>
