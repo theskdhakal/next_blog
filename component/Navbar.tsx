@@ -8,7 +8,7 @@ const Navbar = () => {
     <div className="flex justify-between bg-sky-100">
       <div className="logo">
         <Link href="/">
-          <Image src={logo} alt="not found" width={200} />
+          <Image src={logo} alt="not found" width={100} />
         </Link>
       </div>
 
@@ -17,9 +17,8 @@ const Navbar = () => {
           <h1>Hello ,{fName}</h1>
         ) : ( */}
         <>
-          <Link href="/register">Register</Link>
-
-          <Link href="/login">Login</Link>
+          <Link href="/profile">Profile</Link>
+          <Link href="">Login </Link>
         </>
         {/* )} */}
       </div>

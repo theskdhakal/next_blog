@@ -46,7 +46,7 @@ const DisplaySection = () => {
   return (
     <div>
       {" "}
-      <div className="contents">
+      <div className="contents px-5">
         <h1 className="text-center font-bold">Read All Blogs</h1>
         {contents.length === 0 ? (
           <div style={{ height: "70vh" }}>

@@ -31,7 +31,7 @@ const BlogForm = () => {
   };
 
   return (
-    <div className="m-auto w-4/5 mt-3 ">
+    <div className=" px-5 ">
       <form onSubmit={handleOnSubmit}>
         <div className="flex flex-col space-y-2">
           <input
