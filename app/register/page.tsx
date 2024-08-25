@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { userInput } from "../../component/InputField";
 import CustomInput from "../../component/CustomInput";
+import { addUser } from "@/utils/userAction";
 
 interface FormState {
   [key: string]: string;
@@ -27,6 +28,13 @@ const Register: React.FC = () => {
       email: rest.email || "",
       password: rest.password || "",
     };
+
+    try {
+      const newUser = await addUser(formData);
+      console.log("User added", newUser);
+    } catch (error) {
+      console.error(error);
+    }
   };
   return (
     <div
