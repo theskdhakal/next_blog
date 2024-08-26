@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { userInput } from "../../component/InputField";
 import CustomInput from "../../component/CustomInput";
 import { addUser } from "@/utils/userAction";
@@ -10,6 +10,11 @@ interface FormState {
 
 const Register: React.FC = () => {
   const [form, setForm] = useState<FormState>({});
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -17,45 +22,33 @@ const Register: React.FC = () => {
     setForm({ ...form, [name]: value });
   };
 
-  const handleOnSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    const { confirmPassword, ...rest } = form;
-
-    const formData: any = {
-      fName: rest.fName || "",
-      lName: rest.lName || "",
-      email: rest.email || "",
-      password: rest.password || "",
-    };
-
-    try {
-      const newUser = await addUser(formData);
-      console.log("User added", newUser);
-    } catch (error) {
-      console.error(error);
-    }
-  };
   return (
     <div
       className="flex justify-center items-center "
       style={{ height: "100vh" }}
     >
       <div className="mt-5 border shadow-lg bg-gray-200 w-1/3">
-        <form className="d-grid p-3" onSubmit={handleOnSubmit}>
-          {userInput.map((item, i) => (
-            <CustomInput key={i} {...item} onChange={handleOnChange} />
-          ))}
+        {mounted && (
+          <form
+            className="d-grid p-3"
+            action="/api/auth"
+            method="POST"
+            encType="application/json"
+          >
+            {userInput.map((item, i) => (
+              <CustomInput key={i} {...item} onChange={handleOnChange} />
+            ))}
 
-          <div className="d-grid">
-            <button
-              type="submit"
-              className="w-full my-5 py-2 rounded-md bg-blue-500 text-white"
-            >
-              Submit
-            </button>
-          </div>
-        </form>
+            <div className="d-grid">
+              <button
+                type="submit"
+                className="w-full my-5 py-2 rounded-md bg-blue-500 text-white"
+              >
+                Submit
+              </button>
+            </div>
+          </form>
+        )}
       </div>
     </div>
   );
