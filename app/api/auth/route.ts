@@ -19,10 +19,7 @@ export const POST = async (request: any) => {
       },
     });
 
-    return Response.json(
-      { message: "new user created", user: newUser },
-      { status: 201 }
-    );
+    return Response.redirect(`${process.env.NEXTAUTH_URL}`);
   } catch (error) {
     console.error(error);
     return new Response("failed to add new user", { status: 500 });

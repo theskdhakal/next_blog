@@ -4,6 +4,7 @@ import "./globals.css";
 import { ReactNode } from "react";
 import Navbar from "../component/Navbar";
 import Footer from "../component/Footer";
+import Providers from "@/providers";
 
 export const metadata: Metadata = {
   title: "Write your blog",
@@ -15,9 +16,11 @@ const MainLayout = ({ children }: { children: ReactNode }) => {
   return (
     <html lang="en">
       <body>
-        <Navbar />
-        <main>{children}</main>
-        <Footer />
+        <Providers>
+          <Navbar />
+          <main>{children}</main>
+          <Footer />
+        </Providers>
       </body>
     </html>
   );
