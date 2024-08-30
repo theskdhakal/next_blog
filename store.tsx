@@ -19,6 +19,15 @@ const store = configureStore({
     userInfo: persistedUserReducer,
     // Add other reducers here if needed
   },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        // Ignore these action paths
+        ignoredActions: ["persist/PERSIST"],
+        // Ignore these paths in the state
+        ignoredPaths: ["register", "rehydrate"],
+      },
+    }),
 });
 
 // Create a persistor for the redux store

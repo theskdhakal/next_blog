@@ -19,7 +19,14 @@ export const POST = async (request: any) => {
       },
     });
 
-    return Response.redirect(`${process.env.NEXTAUTH_URL}`);
+    // return Response.redirect(`${process.env.NEXTAUTH_URL}`);
+
+    return new Response(JSON.stringify(newUser), {
+      status: 201,
+      headers: {
+        "content-Type": "application/json",
+      },
+    });
   } catch (error) {
     console.error(error);
     return new Response("failed to add new user", { status: 500 });
