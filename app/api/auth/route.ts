@@ -1,13 +1,14 @@
 import prisma from "../../../lib/prisma";
 
 export const POST = async (request: any) => {
+  console.log("the incoming request is:", request.json());
   try {
-    const formData = await request.formData();
+    const formData = await request.json();
 
-    const fName = formData.get("fName").toString() || "";
-    const lName = formData.get("lName").toString() || "";
-    const email = formData.get("email").toString() || "";
-    const password = formData.get("password").toString() || "";
+    const fName = formData.fName || "";
+    const lName = formData.lName || "";
+    const email = formData.email || "";
+    const password = formData.password || "";
 
     console.log(fName);
     const newUser = await prisma.user.create({
