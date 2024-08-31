@@ -26,6 +26,7 @@ const Register: React.FC = () => {
   const handleRegister = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
+      console.log("form is,", JSON.stringify(form));
       const response = await fetch("/api/auth", {
         method: "POST",
         headers: {

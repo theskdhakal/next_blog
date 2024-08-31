@@ -1,7 +1,7 @@
 import prisma from "../../../lib/prisma";
 
 export const POST = async (request: any) => {
-  console.log("the incoming request is:", request.json());
+  console.log("the incoming request is:", request);
   try {
     const formData = await request.json();
 
