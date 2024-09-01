@@ -4,6 +4,7 @@ import { userInput } from "../../component/InputField";
 import CustomInput from "../../component/CustomInput";
 import { useAppDispatch } from "@/hooks";
 import { setUser } from "@/utils/userSlice";
+import { useRouter } from "next/navigation";
 
 interface FormState {
   [key: string]: string;
@@ -13,6 +14,7 @@ const Register: React.FC = () => {
   const [form, setForm] = useState<FormState>({});
   const [mounted, setMounted] = useState(false);
   const dispatch = useAppDispatch();
+  const router = useRouter();
 
   useEffect(() => {
     setMounted(true);
@@ -39,8 +41,10 @@ const Register: React.FC = () => {
 
       if (response.ok) {
         const user = await response.json();
+
         // Dispatch the user to Redux
         dispatch(setUser(user));
+        router.push("/");
       } else {
         console.error("Failed to sign up");
       }
