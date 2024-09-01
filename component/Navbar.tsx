@@ -3,11 +3,27 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import logo from "../assets/logo.png";
-import { useAppSelector } from "@/hooks";
+import { useAppDispatch, useAppSelector } from "@/hooks";
+import { setUser } from "@/utils/userSlice";
+import { persistor } from "@/store";
+import { useRouter } from "next/navigation";
 
 const Navbar = () => {
   const { user } = useAppSelector((state) => state.userInfo);
+  const dispatch = useAppDispatch();
+  const router = useRouter();
   const { id, fName, lName } = user;
+
+  const handleOnLogout = () => {
+    //remove from persist
+    persistor.purge().then(() => {
+      console.log("logged out");
+    });
+
+    //remove user from redux
+    dispatch(setUser({}));
+    router.push("/login");
+  };
 
   return (
     <div className="bg-sky-100 shadow-md">
@@ -27,9 +43,12 @@ const Navbar = () => {
 
           <div className="menus flex space-x-5">
             {id ? (
-              <Link href="/login" className="text-blue-500 hover:underline">
+              <button
+                onClick={handleOnLogout}
+                className="text-blue-500 hover:underline"
+              >
                 Logout
-              </Link>
+              </button>
             ) : (
               <>
                 <Link href="/login" className="text-blue-500 hover:underline">
