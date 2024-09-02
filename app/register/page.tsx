@@ -37,8 +37,6 @@ const Register: React.FC = () => {
         body: JSON.stringify(form), // Convert form data to JSON
       });
 
-      console.log("response is:", response);
-
       if (response.ok) {
         const user = await response.json();
 

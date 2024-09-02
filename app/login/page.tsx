@@ -3,6 +3,9 @@ import { useState } from "react";
 import React from "react";
 import CustomInput from "../../component/CustomInput";
 import { loginInput } from "../../component/InputField";
+import { useAppDispatch } from "@/hooks";
+import { useRouter } from "next/navigation";
+import { setUser } from "@/utils/userSlice";
 
 export interface FormState {
   email: string;
@@ -15,6 +18,8 @@ const initialFormState: FormState = {
 };
 
 const Login: React.FC = () => {
+  const dispatch = useAppDispatch();
+  const router = useRouter();
   const [form, setForm] = useState<FormState>(initialFormState);
 
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -23,8 +28,30 @@ const Login: React.FC = () => {
     setForm({ ...form, [name]: value });
   };
 
-  const handleOnLogin = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    try {
+      console.log("form is,", JSON.stringify(form));
+      const response = await fetch("/api/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json", // Send data as JSON
+        },
+        body: JSON.stringify(form), // Convert form data to JSON
+      });
+
+      if (response.ok) {
+        const user = await response.json();
+
+        // Dispatch the user to Redux
+        dispatch(setUser(user));
+        router.push("/");
+      } else {
+        console.error("Failed to sign up");
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
@@ -33,7 +60,7 @@ const Login: React.FC = () => {
       style={{ height: "100vh" }}
     >
       <div className="mt-5 border shadow-lg bg-gray-200 w-1/3">
-        <form className="d-grid p-3" onSubmit={handleOnLogin}>
+        <form className="d-grid p-3" onSubmit={handleLogin}>
           {loginInput.map((item, i) => (
             <CustomInput key={i} {...item} onChange={handleOnChange} />
           ))}
