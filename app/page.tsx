@@ -1,14 +1,19 @@
+"use client";
 import React from "react";
 import BlogForm from "../component/BlogForm";
 import DisplaySection from "../component/DisplaySection";
+import { useAppSelector } from "@/hooks";
 
-const abcd = () => {
+const Home = () => {
+  const { user } = useAppSelector((state) => state.userInfo);
+
   return (
     <>
-      <BlogForm />
+      {user?.id && <BlogForm />}
+
       <DisplaySection />
     </>
   );
 };
 
-export default abcd;
+export default Home;
