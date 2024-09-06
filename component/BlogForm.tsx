@@ -1,4 +1,5 @@
 "use client";
+import { useAppSelector } from "@/hooks";
 import React, { ChangeEvent, FormEvent, useState } from "react";
 
 interface contentData {
@@ -16,6 +17,9 @@ const initialFormState: contentData = {
 };
 
 const BlogForm = () => {
+  const { user } = useAppSelector((state) => state.userInfo);
+  const { id, fName, lName } = user;
+
   const [form, setForm] = useState<contentData>({ ...initialFormState });
 
   const handleOnChange = (
@@ -28,6 +32,13 @@ const BlogForm = () => {
 
   const handleOnSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    const formData = {
+      title: form.title,
+      post: form.post,
+      author: `${fName} ${lName}`,
+      authorId: `${id}`,
+    };
   };
 
   return (
