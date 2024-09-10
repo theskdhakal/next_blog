@@ -11,16 +11,16 @@ export const POST = async (request: any) => {
 
     const newPost = await prisma.post.create({
       data: {
-        fName,
-        lName,
-        email,
-        password,
+        title,
+        post,
+        author,
+        authorId,
       },
     });
 
     // return Response.redirect(`${process.env.NEXTAUTH_URL}`);
 
-    return new Response(JSON.stringify(newUser), {
+    return new Response(JSON.stringify(newPost), {
       status: 201,
       headers: {
         "content-Type": "application/json",

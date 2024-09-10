@@ -39,6 +39,30 @@ const BlogForm = () => {
       author: `${fName} ${lName}`,
       authorId: `${id}`,
     };
+
+    try {
+      const response = await fetch("/api/post", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json", // Send data as JSON
+        },
+        body: JSON.stringify(formData), // Convert form data to JSON
+      });
+
+      if (response.ok) {
+        const post = await response.json();
+
+        console.log(post);
+
+        // Dispatch the user to Redux
+        // dispatch(setUser(user));
+        // router.push("/");
+      } else {
+        console.error("Failed to post the content");
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
