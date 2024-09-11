@@ -1,5 +1,6 @@
 "use client";
-import { useAppSelector } from "@/hooks";
+import { useAppDispatch, useAppSelector } from "@/hooks";
+import { setPosts } from "@/utils/postSlice";
 import React, { ChangeEvent, FormEvent, useState } from "react";
 
 interface contentData {
@@ -17,6 +18,7 @@ const initialFormState: contentData = {
 };
 
 const BlogForm = () => {
+  const dispatch = useAppDispatch();
   const { user } = useAppSelector((state) => state.userInfo);
   const { id, fName, lName } = user;
 
@@ -52,11 +54,21 @@ const BlogForm = () => {
       if (response.ok) {
         const post = await response.json();
 
-        console.log(post);
+        // Fetch all posts after successfully adding a new post
+        const getPostsResponse = await fetch("/api/post", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
 
-        // Dispatch the user to Redux
-        // dispatch(setUser(user));
-        // router.push("/");
+        if (getPostsResponse.ok) {
+          const allPosts = await getPostsResponse.json();
+          console.log(allPosts);
+          dispatch(setPosts(allPosts)); // Update the state with the fetched posts
+        } else {
+          console.error("Failed to fetch posts");
+        }
       } else {
         console.error("Failed to post the content");
       }

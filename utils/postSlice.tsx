@@ -1,11 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { User } from "./types";
 
 const initialState = {
   posts: [],
 };
 
-const userSlice = createSlice({
+const postSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
@@ -15,7 +14,7 @@ const userSlice = createSlice({
   },
 });
 
-const { reducer, actions } = userSlice;
+const { reducer, actions } = postSlice;
 
 export const { setPosts } = actions;
 

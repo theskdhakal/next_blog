@@ -31,3 +31,19 @@ export const POST = async (request: any) => {
     return new Response("failed to add new user", { status: 500 });
   }
 };
+
+export const GET = async () => {
+  try {
+    const allPosts = await prisma.post.findMany();
+
+    return new Response(JSON.stringify(allPosts), {
+      status: 200,
+      headers: {
+        "content-Type": "aplication/json",
+      },
+    });
+  } catch (error) {
+    console.error(error);
+    return new Response("failed to retrieve posts.", { status: 500 });
+  }
+};
