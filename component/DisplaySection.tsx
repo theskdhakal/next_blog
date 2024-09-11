@@ -2,46 +2,10 @@
 import { format } from "date-fns";
 import React, { useState } from "react";
 
-const DisplaySection = () => {
+const DisplaySection = ({ contents }) => {
   const [expandedContentIds, setExpandedContentIds] = useState<string[]>([]);
 
-  const contents = [
-    {
-      _id: "1",
-      title: "The Great Gatsby",
-      author: "F. Scott Fitzgerald",
-      createdAt: "2024-08-01T14:30:00Z",
-      post: "A novel set in the Roaring Twenties, exploring themes of wealth and excess.",
-    },
-    {
-      _id: "2",
-      title: "To Kill a Mockingbird",
-      author: "Harper Lee",
-      createdAt: "2024-08-02T09:15:00Z",
-      post: "A story about racial injustice in the Deep South, told through the eyes of a young girl.",
-    },
-    {
-      _id: "3",
-      title: "1984",
-      author: "George Orwell",
-      createdAt: "2024-08-03T16:45:00Z",
-      post: "A dystopian novel exploring totalitarianism, surveillance, and individuality.",
-    },
-    {
-      _id: "4",
-      title: "Pride and Prejudice",
-      author: "Jane Austen",
-      createdAt: "2024-08-04T11:00:00Z",
-      post: "A classic novel about love and social standing in early 19th-century England.",
-    },
-    {
-      _id: "5",
-      title: "The Catcher in the Rye",
-      author: "J.D. Salinger",
-      createdAt: "2024-08-05T18:30:00Z",
-      post: "A novel centered on the struggles of teenage angst and alienation.",
-    },
-  ];
+  console.log("content is", contents);
 
   return (
     <div>
@@ -58,9 +22,6 @@ const DisplaySection = () => {
               key={content._id}
               className="border shadow-lg rounded p-4 my-4 relative"
             >
-              <p className="text-sm text-gray-500">
-                {format(content.createdAt, "MM/dd/yyyy")}
-              </p>
               <p className="text-gray-600">By: {content.author}</p>
               <h2 className="text-lg font-bold text-center underline my-2 text-blue-500">
                 {content.title}
